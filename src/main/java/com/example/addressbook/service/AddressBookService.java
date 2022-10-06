@@ -1,6 +1,7 @@
 package com.example.addressbook.service;
 
 import com.example.addressbook.dto.AddressBookDTO;
+import com.example.addressbook.exception.AddressBookException;
 import com.example.addressbook.model.AddressBook;
 import com.example.addressbook.repository.AddressBookRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,4 +62,19 @@ public class AddressBookService implements IAddressBookService {
         return null;
     }
 
+    public List<AddressBook> getDataByCity(String city){
+        List<AddressBook> newAdd = repository.findByCity(city);
+        if (newAdd.isEmpty()){
+            throw new AddressBookException("City not found");
+        }
+        return newAdd;
+    }
+
+    public List<AddressBook> getDataByFirstName(String firstName){
+        List<AddressBook> newAdd = repository.findByFirstName(firstName);
+        if (newAdd.isEmpty()){
+            throw new AddressBookException("FirstName not found");
+        }
+        return newAdd;
+    }
 }

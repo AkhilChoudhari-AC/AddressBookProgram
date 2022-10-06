@@ -2,6 +2,7 @@ package com.example.addressbook.controller;
 
 import com.example.addressbook.dto.AddressBookDTO;
 import com.example.addressbook.dto.ResponseDTO;
+import com.example.addressbook.exception.AddressBookException;
 import com.example.addressbook.model.AddressBook;
 import com.example.addressbook.service.IAddressBookService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,5 +72,19 @@ public class AddressBookController {
     public ResponseEntity<String> deleteDataById(@PathVariable Integer id) {
         service.deleteContact(id);
         return new ResponseEntity<String>("Contact deleted successfully", HttpStatus.OK);
+    }
+    // Ability to get data by city
+    @GetMapping("/getbycity/{city}")
+    public ResponseEntity<ResponseDTO> getRecordFromRepoByCity(@PathVariable String city) throws AddressBookException{
+        List<AddressBook> newAddress = service.getDataByCity(city);
+        ResponseDTO dto = new ResponseDTO("Data retrieved for given city", newAddress);
+        return new ResponseEntity(dto, HttpStatus.OK);
+    }
+    // Ability to get data by firstName
+    @GetMapping("/getbyfirstname/{firstName}")
+    public ResponseEntity<ResponseDTO> getRecordFromRepoByFirstName(@PathVariable String firstName) throws AddressBookException {
+        List<AddressBook> newAddress = service.getDataByFirstName(firstName);
+        ResponseDTO dto = new ResponseDTO("Data retrieved for given firstName", newAddress);
+        return new ResponseEntity(dto, HttpStatus.OK);
     }
 }

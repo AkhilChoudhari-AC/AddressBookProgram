@@ -19,4 +19,7 @@ public interface IAddressBookService {
 
     Object getAddressbyId(Integer id);
     public Optional<AddressBook> getDataById(Integer id);
+
+    public List<AddressBook> getDataByCity(String city);
+    public List<AddressBook> getDataByFirstName(String firstName);
 }
